@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
+*.tmp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Dataset is downloaded separately (see data/README.md)
+data/*.csv
+
+# Frontend tooling (if added later)
+node_modules/
+dist/
+build/

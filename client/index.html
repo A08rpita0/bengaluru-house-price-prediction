@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bengaluru House Price Estimator</title>
+  <meta name="description" content="Estimate Bengaluru apartment prices from location, area, bedrooms and bathrooms.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1>Bengaluru House Price Estimator</h1>
+      <p class="subtitle">A machine learning estimate from location, area, bedrooms and bathrooms.</p>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title">Property details</h2>
+      <div id="api-status" class="banner banner-error" role="alert" hidden></div>
+      <form id="estimate-form" novalidate>
+        <div class="field">
+          <label for="location">Location</label>
+          <input id="location" name="location" list="location-options" autocomplete="off"
+                 placeholder="Start typing, e.g. Whitefield" required aria-describedby="location-hint location-error">
+          <datalist id="location-options"></datalist>
+          <p id="location-hint" class="hint">Locations not seen in training are allowed but less reliable.</p>
+          <p id="location-error" class="error" aria-live="polite"></p>
+        </div>
+
+        <div class="field">
+          <label for="total_sqft">Built-up area (sq ft)</label>
+          <input id="total_sqft" name="total_sqft" type="number" inputmode="numeric" min="300" max="30000" step="1"
+                 placeholder="e.g. 1200" required aria-describedby="total_sqft-error">
+          <p id="total_sqft-error" class="error" aria-live="polite"></p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="bhk">Bedrooms (BHK)</label>
+            <input id="bhk" name="bhk" type="number" min="1" max="10" step="1" value="2" required
+                   aria-describedby="bhk-error">
+            <p id="bhk-error" class="error" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="bath">Bathrooms</label>
+            <input id="bath" name="bath" type="number" min="1" max="11" step="1" value="2" required
+                   aria-describedby="bath-error">
+            <p id="bath-error" class="error" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <button id="submit-btn" type="submit" class="btn">Estimate price</button>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="result-title" aria-live="polite">
+      <h2 id="result-title">Estimate</h2>
+      <div id="result-empty" class="empty">Fill in the details and select <strong>Estimate price</strong>.</div>
+      <div id="result" hidden>
+        <p class="estimate"><span id="estimate-main"></span></p>
+        <p class="estimate-sub" id="estimate-sub"></p>
+        <dl class="stats">
+          <div><dt>Likely range</dt><dd id="estimate-range"></dd></div>
+          <div><dt>Price per sq ft</dt><dd id="estimate-pps"></dd></div>
+        </dl>
+        <p id="range-note" class="hint"></p>
+        <div id="unknown-location" class="banner banner-warn" hidden>
+          This location was not in the training data (or had too few listings). The estimate uses a
+          city-wide "other" category and is less reliable.
+        </div>
+      </div>
+    </section>
+
+    <section class="card wide" aria-labelledby="how-title">
+      <h2 id="how-title">How the model works</h2>
+      <p>
+        The model was trained on a public Kaggle dataset of Bengaluru property listings (prices in lakhs of
+        INR). Data was split into train and test sets before any cleaning that looks at price, and several
+        models were compared with cross-validation.
+      </p>
+      <div id="model-info"><p class="hint">Loading model details...</p></div>
+      <p class="hint">Listing prices, not transaction prices. For exploration only, not a valuation.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Built by <a href="https://github.com/A08rpita0">Arpita Khobragade</a>
+    </div>
+  </footer>
+</body>
+</html>

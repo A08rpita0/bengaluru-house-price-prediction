@@ -1,0 +1,19 @@
+[project]
+name = "house-price"
+version = "2.0.0"
+description = "Bengaluru house price estimation: leakage-free training pipeline, Flask API and web client."
+requires-python = ">=3.11"
+authors = [{ name = "Arpita Khobragade" }]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N"]
+ignore = ["N803", "N806"]  # scikit-learn convention: X for feature matrices
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
